@@ -1,0 +1,100 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "Unbounded";
+  src: url("./assets/brand/Unbounded-VariableFont_wght.ttf") format("truetype");
+  font-weight: 200 900;
+  font-display: swap;
+}
+
+@theme {
+  --font-heading: "Unbounded", "Segoe UI", Roboto, sans-serif;
+  --font-body: "Segoe UI", Roboto, system-ui, sans-serif;
+
+  /* Brand — extracted from marca-principal.png / fundo.jpg in this repo */
+  --color-primary: #e7254d; /* brand pink/red — icons, dots, chart line, large/bold text (≥3:1 need) */
+  --color-primary-text: #ff6b93; /* lighter tint — small/normal text on dark surfaces (≥4.5:1 need) */
+  --color-primary-hover: #c81a3f; /* button fill default — white text passes 4.5:1 here, not on raw primary */
+  --color-primary-active: #a3123a; /* button fill hover/press */
+  --color-secondary: #d3dc61; /* brand lime */
+  --color-warning: #f5b942; /* amber accent, data-viz/status only */
+
+  /* Dark navy shell — derived from fundo.jpg's tech-network background */
+  --color-canvas: #0a1526; /* page background */
+  --color-surface: #101f38; /* card background */
+  --color-surface-2: #182b4a; /* input / hover / alt surface */
+  --color-line: #263a5c; /* default border */
+  --color-line-soft: #1a2c48; /* subtle divider */
+
+  --color-ink: #f5f7fb; /* primary text */
+  --color-ink-muted: #93a4c6; /* secondary/tertiary text — AA-safe (≥4.5:1) on surface/surface-2 */
+  --color-ink-faint: #5d6e90; /* decorative only (status dots, underline hints) — fails AA for text, do not use for readable copy */
+
+  /* Team colors — literal data (jersey color), not brand decoration */
+  --color-team-amarelo: #fbbf24;
+  --color-team-azul: #5b8def;
+}
+
+html {
+  font-family: var(--font-body);
+  color-scheme: dark;
+  /* overflow-x: hidden (não clip) — clip tem suporte inconsistente em
+     navegadores mobile reais; hidden é o mais previsível como rede de
+     segurança. A correção de verdade é nunca ter conteúdo mais largo que a
+     viewport em telas pequenas (ver tabelas com hidden sm:block nas páginas). */
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+  max-width: 100%;
+  background: var(--color-canvas);
+  color: var(--color-ink);
+}
+
+/* Below md, a fixed bottom tab bar (~64px) overlaps the viewport. Reserve
+   that space so native scroll-into-view (focus, anchor jumps) never lands
+   a target underneath it. */
+@media (max-width: 767px) {
+  html {
+    scroll-padding-bottom: 80px;
+  }
+}
+
+h1, h2, h3, .font-heading {
+  font-family: var(--font-heading);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--color-primary) 40%, transparent);
+}
+
+/* Esconde a barra de rolagem mantendo o scroll funcional — usada na navegação
+   do header, que rola horizontalmente quando há muitos itens (perfil admin em
+   telas estreitas) em vez de sobrepor a logo ou empurrar o botão Sair para
+   fora da viewport. */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Respeita a preferência do sistema por menos movimento: neutraliza
+   transições/animações para quem ativou "reduzir movimento" (a11y). */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
