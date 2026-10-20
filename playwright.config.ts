@@ -1,8 +1,7 @@
 import { defineConfig, devices } from "@playwright/test";
 
-// Chromium apenas: o bug investigado (arraste de toque encadeando scroll
-// horizontal da página) foi reportado num Android/Chrome real, e é o único
-// engine com suporte completo a simulação de toque via CDP no Playwright.
+// Os testes usam Chromium com suporte a CDP para simular gestos de toque.
+// O Playwright resolve o executável instalado por "npx playwright install chromium".
 export default defineConfig({
   testDir: "./tests/e2e",
   fullyParallel: true,
@@ -20,7 +19,7 @@ export default defineConfig({
   projects: [
     {
       name: "chromium",
-      use: { ...devices["Desktop Chrome"], launchOptions: { executablePath: "/opt/pw-browsers/chromium" } },
+      use: { ...devices["Desktop Chrome"] },
     },
   ],
 });
