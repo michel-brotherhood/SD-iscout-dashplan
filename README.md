@@ -70,7 +70,7 @@ public/       ícones, manifesto PWA e service worker
 - Alterações persistidas em `localStorage` existem apenas naquele navegador.
 - As recomendações de reforço são regras simples de demonstração, sem modelo de IA.
 - O build atual gera um chunk JavaScript acima de 500 kB; vale avaliar divisão por rota, especialmente para a dependência de diagramas.
-- O teste E2E precisa do Chromium instalado.
+- O teste E2E precisa do Chromium instalado pelo Playwright. A configuração não fixa um caminho absoluto, então funciona em ambientes Linux com diretórios de cache diferentes.
 
 ## Privacidade e uso
 
